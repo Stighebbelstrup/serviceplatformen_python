@@ -1,0 +1,49 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcmi:  <http://purl.org/dc/terms/> .
+@prefix qw:    <http://www.qualiware.com/> .
+@prefix kombitrm: <http://kombit.dk/releasemanagement/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix prov:  <https://www.w3.org/TR/prov-o/#> .
+@prefix www-addr: <https://www.w3.org/Addressing/> .
+
+<https://docs.kombit.dk/integration/sf0101/1.0/beskrivelse>
+        a                    dcterms:BibliographicResource ;
+        kombitrm:version     "1.0" ;
+        dcterms:created      "2020-02-24T22:32:36.970+0100" ;
+        dcterms:creator      <http://kombit.dk/medarbejder/XMEL> ;
+        dcterms:identifier   "https://docs.kombit.dk/integration/sf0101/1.0/beskrivelse" ;
+        dcterms:title        "SF0101 - Demoservice til Infrastrukturen v1.0.pdf" ;
+        www-addr:url         "file:///./SF0101 - Demoservice til Infrastrukturen v1.0.pdf" ;
+        prov:wasGeneratedBy  "KDI-Tools Pakkegenerator 20191220-SNAPSHOT" .
+
+<https://docs.kombit.dk/integration/sf0101/1.0/pakke>
+        a                    dcterms:BibliographicResource ;
+        kombitrm:version     "1.0" ;
+        dcterms:created      "2020-02-24T22:32:36.970+0100" ;
+        dcterms:creator      <http://kombit.dk/medarbejder/XMEL> ;
+        dcterms:identifier   "https://docs.kombit.dk/integration/sf0101/1.0/pakke" ;
+        dcterms:title        "SF0101 - Dokumentationspakke til DemoService_1.0.zip" ;
+        www-addr:url         "file:///../SF0101+-+Dokumentationspakke+til+DemoService_1.0.zip" ;
+        prov:wasGeneratedBy  "KDI-Tools Pakkegenerator 20191220-SNAPSHOT" .
+
+<https://docs.kombit.dk/integration/sf0101/latest/pakke>
+        a                    prov:Location ;
+        kombitrm:version     "1.0" ;
+        dcterms:created      "2020-02-24T22:32:36.970+0100" ;
+        dcterms:creator      <http://kombit.dk/medarbejder/XMEL> ;
+        dcterms:identifier   "https://docs.kombit.dk/integration/sf0101/latest/pakke" ;
+        www-addr:url         "https://docs.kombit.dk/integration/sf0101/1.0/pakke" ;
+        prov:wasGeneratedBy  "KDI-Tools Pakkegenerator 20191220-SNAPSHOT" .
+
+qw:guid-064c1852-f96f-415c-9d4d-0dd529cae9b9
+        dcterms:references  <https://docs.kombit.dk/integration/sf0101/1.0/pakke> , <https://docs.kombit.dk/integration/sf0101/1.0/beskrivelse> .
+
+<https://docs.kombit.dk/integration/sf0101/latest/beskrivelse>
+        a                    prov:Location ;
+        kombitrm:version     "1.0" ;
+        dcterms:created      "2020-02-24T22:32:36.970+0100" ;
+        dcterms:creator      <http://kombit.dk/medarbejder/XMEL> ;
+        dcterms:identifier   "https://docs.kombit.dk/integration/sf0101/latest/beskrivelse" ;
+        www-addr:url         "https://docs.kombit.dk/integration/sf0101/1.0/beskrivelse" ;
+        prov:wasGeneratedBy  "KDI-Tools Pakkegenerator 20191220-SNAPSHOT" .

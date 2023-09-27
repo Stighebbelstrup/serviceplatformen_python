@@ -1,0 +1,98 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+  <soap:Header>
+    <Action xmlns="http://www.w3.org/2005/08/addressing" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="_%%ID1%%">http://docs.oasis-open.org/ws-sx/ws-trust/200512/RST/Issue</Action>
+    <MessageID xmlns="http://www.w3.org/2005/08/addressing" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="_%%ID2%%">urn:uuid:%%MESSAGE_ID%%</MessageID>
+    <To xmlns="http://www.w3.org/2005/08/addressing" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="_%%ID3%%">%%CERTIFICATE_ENDPOINT%%</To>
+    <ReplyTo xmlns="http://www.w3.org/2005/08/addressing" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="_%%ID4%%">
+      <Address>http://www.w3.org/2005/08/addressing/anonymous</Address>
+    </ReplyTo>
+    <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" soap:mustUnderstand="true">
+      <wsse:BinarySecurityToken EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3" wsu:Id="X509-%%ID7%%">%%CERT_PEM%%</wsse:BinarySecurityToken>
+      <wsu:Timestamp wsu:Id="TS-%%ID5%%">
+        <wsu:Created>%%START_TIME%%</wsu:Created>
+        <wsu:Expires>%%END_TIME%%</wsu:Expires>
+      </wsu:Timestamp>
+      <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="SIG-%%ID8%%">
+        <ds:SignedInfo>
+          <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+          <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+          <ds:Reference URI="#TS-%%ID5%%">
+            <ds:Transforms>
+              <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+            </ds:Transforms>
+            <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <ds:DigestValue>%%DIGEST5%%</ds:DigestValue>
+          </ds:Reference>
+          <ds:Reference URI="#_%%ID6%%">
+            <ds:Transforms>
+              <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+            </ds:Transforms>
+            <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <ds:DigestValue>%%DIGEST6%%</ds:DigestValue>
+          </ds:Reference>
+          <ds:Reference URI="#_%%ID3%%">
+            <ds:Transforms>
+              <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+            </ds:Transforms>
+            <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <ds:DigestValue>%%DIGEST3%%</ds:DigestValue>
+          </ds:Reference>
+          <ds:Reference URI="#_%%ID4%%">
+            <ds:Transforms>
+              <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+            </ds:Transforms>
+            <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <ds:DigestValue>%%DIGEST4%%</ds:DigestValue>
+          </ds:Reference>
+          <ds:Reference URI="#_%%ID2%%">
+            <ds:Transforms>
+              <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+            </ds:Transforms>
+            <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <ds:DigestValue>%%DIGEST2%%</ds:DigestValue>
+          </ds:Reference>
+          <ds:Reference URI="#_%%ID1%%">
+            <ds:Transforms>
+              <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+            </ds:Transforms>
+            <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <ds:DigestValue>%%DIGEST1%%</ds:DigestValue>
+          </ds:Reference>
+          <ds:Reference URI="#X509-%%ID7%%">
+            <ds:Transforms>
+              <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+            </ds:Transforms>
+            <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <ds:DigestValue>%%DIGEST7%%</ds:DigestValue>
+          </ds:Reference>
+        </ds:SignedInfo>
+        <ds:SignatureValue>%%SIGVAL1%%</ds:SignatureValue>
+        <ds:KeyInfo Id="KI-%%ID9%%">
+          <wsse:SecurityTokenReference wsu:Id="STR-%%ID9%%">
+            <wsse:Reference URI="#X509-%%ID7%%" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
+          </wsse:SecurityTokenReference>
+        </ds:KeyInfo>
+      </ds:Signature>
+    </wsse:Security>
+  </soap:Header>
+  <soap:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="_%%ID6%%">
+    <wst:RequestSecurityToken xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512">
+      <wst:RequestType>http://docs.oasis-open.org/ws-sx/ws-trust/200512/Issue</wst:RequestType>
+      <wsp:AppliesTo xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+        <wsa:EndpointReference xmlns:wsa="http://www.w3.org/2005/08/addressing">
+          <wsa:Address>%%SERVICEENDPOINT%%</wsa:Address>
+        </wsa:EndpointReference>
+      </wsp:AppliesTo>
+      <Claims xmlns="http://docs.oasis-open.org/ws-sx/ws-trust/200512" Dialect="http://docs.oasis-open.org/wsfed/authorization/200706/authclaims">
+        <ClaimType xmlns="http://docs.oasis-open.org/wsfed/authorization/200706" Uri="dk:gov:saml:attribute:CvrNumberIdentifier">
+          <Value>%%CVR%%</Value>
+        </ClaimType>
+      </Claims>
+      <wst:TokenType>http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0</wst:TokenType>
+      <wst:KeyType>http://docs.oasis-open.org/ws-sx/ws-trust/200512/PublicKey</wst:KeyType>
+      <wst:UseKey>
+        <wsse:BinarySecurityToken xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3">%%CERT_PEM%%</wsse:BinarySecurityToken>
+      </wst:UseKey>
+    </wst:RequestSecurityToken>
+  </soap:Body>
+</soap:Envelope>
