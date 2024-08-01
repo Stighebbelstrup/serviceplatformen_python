@@ -438,17 +438,24 @@ class SoapXML(SoapID, SoapCryptography):
                     SorteringRetning="ASC",
                 )
 
-            if service_operation == "IndkomstoplysningerLaes":
+            if service_operation == "SF0770_A_IndkomstoplysningerLaes_IndkomstoplysningerLaes":
+
                 person_id = "%%MESSAGE_STRING%%"
                 start_date = "%%START_DATE%%"
                 end_date = "%%END_DATE%%"
 
-                IndkomstOplysningPersonHent_I = {
-                    "HovedOplysninger": {
-                        "TransaktionIdentifikator": f"{transaktionsid}",
-                        "TransaktionTid": f"{transaktionstid}",
-                    },
-                    "IndkomstOplysningPersonInddata": {
+                transaktionsid = "%%TRANSAKTIONSID%%"
+                transaktionstid = "%%TRANSAKTIONSTID%%"
+
+                HovedOplysninger = {
+                    
+                        "TransaktionsId": f"{transaktionsid}",
+                        "TransaktionsTid": f"{transaktionstid}",
+                    
+                }
+
+                IndkomstOplysningPersonInddata = {
+                    
                         "AbonnentAdgangStruktur": {
                             "AbonnentTypeKode": os.environ[
                                 "ABONNENT_TYPE_KODE"
@@ -461,57 +468,58 @@ class SoapXML(SoapID, SoapCryptography):
                         "AbonnentStruktur": {
                             "AbonnentVirksomhedStruktur": {
                                 "AbonnentVirksomhed": {
-                                    "SEnummerIdentifikator": os.environ[
+                                    "VirksomhedSENummerIdentifikator": os.environ[
                                         "SE_NUMMER_IDENTIFIKATOR"
                                     ]
                                 }
                             }
                         },  # The SE number also comes from the agreement with SKAT
-                        "IndkomstOplysningValg": {
-                            "IndkomstPersonSamling": {
-                                "PersonIndkomstSøgeStruktur": {
-                                    "PersonCivilRegistrationIdentifier": person_id,
-                                    "SøgePeriodeLukketStruktur": {
-                                        "DateInterval": {
-                                            "StartDate": start_date,
-                                            "EndDate": end_date,
+                        'IndkomstOplysningValg': {
+                            'IndkomstPersonSamling': {
+                                'PersonIndkomstSoegeStruktur': [
+                                    {
+                                        'PersonCivilRegistrationIdentifier': person_id,
+                                        
+                                        'SoegePeriodeLukketStruktur': {
+                                            'DateInterval': {
+                                                'StartDate': start_date,
+                                                'EndDate': end_date  # Or DurationMeasure
+                                            }
                                         }
-                                    },
-                                }
+                                    }
+                                ]
                             }
-                        },
-                    },
-                }
-
+                        }
+                    }
+                
                 soap_body = client.create_message(
                     client.service,
-                    "IndkomstoplysningerLaes",
-                    IndkomstOplysningPersonHent_I=IndkomstOplysningPersonHent_I,
+                    "SF0770_A_IndkomstoplysningerLaes_IndkomstoplysningerLaes",
+                    HovedOplysninger=HovedOplysninger,
+                    IndkomstOplysningPersonInddata=IndkomstOplysningPersonInddata,
                 )
 
-            # extract content of body which is the third tagged element
-            for index, child in enumerate(soap_body.iter()):
-                if index == 2:
-                    content_of_body_tag = child.tag
-                    content_of_body = soap_body.findall(f".//{content_of_body_tag}")
+                # extract content of body which is the third tagged element
+                for index, child in enumerate(soap_body.iter()):
+                    if index == 2:
+                        content_of_body_tag = child.tag
+                        content_of_body = soap_body.findall(f".//{content_of_body_tag}")
 
-            # convert to string
-            content_of_body_str = etree.tostring(content_of_body[0], encoding="unicode")
+                # convert to string
+                content_of_body_str = etree.tostring(content_of_body[0], encoding="unicode")
 
-            # add correct start and end body with random id
-            body_start = '<soap:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="_%%ID6%%">'
-            body_end = "</soap:Body>"
+                # add correct start and end body with random id
+                body_start = '<soap:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="_%%ID6%%">'
+                body_end = "</soap:Body>"
 
-            full_body = body_start + content_of_body_str + body_end
+                full_body = body_start + content_of_body_str + body_end
 
-            with open(
-                f"./files_with_body_templates/body_{service_operation}.xml",
-                "w",
-                encoding="utf8",
-            ) as f:
-                f.write(full_body)
-
-            return full_body
+                with open(
+                    f"./files_with_body_templates/body_{service_operation}.xml",
+                    "w",
+                    encoding="utf8",
+                    ) as f:
+                    f.write(full_body)
 
 
 class SOAPHTTP:

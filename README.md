@@ -38,6 +38,17 @@ The solution is based on the following elements:
 
 The templates for the STS service and the CPR/Eindkomst service is created using the Java client and then simply saving it as an xml file and inserting placeholders in this format ,%%PLACEHOLDER%%, for the information that needs to be inserted. The placeholders are then replaced with the correct information in the code. First a series of random IDs and the correct timestamps are inserted. In addition the files "prod_services.xlsx" and "test_services.xlsx", one for test, and one for production, are used to insert the correct endpoints, and some additional information, for the different services.
 
+It is not always easy to find the relevant information about what should be inserted into the excel spreadsheet unfortunately. Sometimes the information can be found on the documentation for the service, sometimes in the WSDL file, and sometimes in the list of documentation for the service, and sometimes in the administrative module for the service. One thing that is certainly not obvious is the "soapAction" which, until the update of the Eindkomst service followed a relatively standardized pattern but is now completely different. It should be possible to find this in the wsdl file in the documentation under "soapAction". In the wsdl file for the new EIndkomst service this can e.g. be found in this part of the file:
+
+```xml
+
+<soap:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                soapAction="http://www.kombit.dk/2017/01/01/SKATForwardEIndkomstServiceService_4#SF0770_A_IndkomstoplysningerLaes_IndkomstoplysningerLaes"/>
+<wsdl:input name="IndkomstOplysningPersonHent">
+```
+
+The "soapAction" is then the string after "soapAction=" i.e. "http://www.kombit.dk/2017/01/01/SKATForwardEIndkomstServiceService_4#SF0770_A_IndkomstoplysningerLaes_IndkomstoplysningerLaes" . The "soapAction" is then inserted into the excel spreadsheet under "wsdl".
+
 The template for the service itself also requires some additional information. This is the information that is used to create the body of the XML file. This information is inserted into the template in the code using the %%BODY%% placeholder. The body contains information about the specific data that should be extracted, and sometimes some additional identifying information about who is making the request. This needs to be tailormade for each service and for each type of data. The Zeep library is used to create the body, and then the body is converted to a string and inserted into the template. Instead of creating the body using Zeep, it is also possible to create the body using the templates. This is done by creating a new template for the body and then inserting the placeholders for the information that needs to be inserted. The placeholders are then replaced with the correct information in the code. This is much faster than creating them from scratch each time and also requires all the background information needed to read and parse the WSDL file each time.
 
 
